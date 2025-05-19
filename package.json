@@ -27,3 +27,7 @@
   ],
   "license": "MIT"
 }
+"scripts": {
+  "test": "echo \"No tests yet\""
+}
+
