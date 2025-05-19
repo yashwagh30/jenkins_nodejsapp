@@ -4,7 +4,8 @@
   "description": "A sample Node.js app using Express 4",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "express": "^4.13.3"
@@ -27,7 +28,3 @@
   ],
   "license": "MIT"
 }
-"scripts": {
-  "test": "echo \"No tests yet\""
-}
-
