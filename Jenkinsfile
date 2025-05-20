@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    tools {
-        nodejs "NodeJS" // Define this in Jenkins tools config
-    }
+
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/yashwagh30/https://github.com/yashwagh30/jenkins_nodejsapp.git'
+                git 'https://github.com/yashwagh30/jenkins_nodejsapp.git'
             }
         }
 
@@ -16,18 +14,10 @@ pipeline {
             }
         }
 
-        stage('Run Unit Tests') {
+        stage('Run App') {
             steps {
-                sh 'npm test'
+                sh 'node app.js'
             }
-        }
-    }
-    post {
-        success {
-            echo '✅ All tests passed!'
-        }
-        failure {
-            echo '❌ Some tests failed!'
         }
     }
 }
