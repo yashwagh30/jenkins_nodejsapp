@@ -1,53 +1,33 @@
 pipeline {
     agent any
-
-    environment {
-        IMAGE_NAME = 'yashwagh30/jenkins-node-demo:day60'
+    tools {
+        nodejs "NodeJS" // Define this in Jenkins tools config
     }
-
     stages {
-        stage('Clone') {
+        stage('Clone Repo') {
             steps {
-                echo 'Cloning repo...'
-                git 'https://github.com/yashwagh30/jenkins_nodejsapp'
+                git 'https://github.com/yashwagh30/https://github.com/yashwagh30/jenkins_nodejsapp.git'
             }
         }
 
-        stage('Install & Test') {
+        stage('Install Dependencies') {
             steps {
-                bat 'npm install'
-                bat 'npm test'
+                sh 'npm install'
             }
         }
 
-        stage('Docker Build') {
+        stage('Run Unit Tests') {
             steps {
-                bat "docker build -t ${IMAGE_NAME} ."
-            }
-        }
-
-        stage('Docker Push') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    bat "docker login -u %DOCKER_USER% -p %DOCKER_PASS%"
-                    bat "docker push ${IMAGE_NAME}"
-                }
-            }
-        }
-
-        stage('Run Container') {
-            steps {
-                bat "docker run -d -p 3001:3001 ${IMAGE_NAME}"
+                sh 'npm test'
             }
         }
     }
-
     post {
         success {
-            echo '✅ CI/CD pipeline complete!'
+            echo '✅ All tests passed!'
         }
         failure {
-            echo '❌ Pipeline failed'
+            echo '❌ Some tests failed!'
         }
     }
 }
