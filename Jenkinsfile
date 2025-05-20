@@ -16,7 +16,7 @@ pipeline {
 
         stage('Run App') {
             steps {
-                bat 'index.js'
+                bat 'app.json'
             }
         }
     }
